@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by sytect on 10/17/2016.
  */
 
-public class TeleOpMan extends OpMode {
+public class TeleOpTina extends OpMode {
 
     DcMotor leftMotor, rightMotor;
 
