@@ -32,11 +32,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package org.firstinspires.ftc.robotcontroller.internal;
 
 import com.google.blocks.ftcrobotcontroller.runtime.BlocksOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
-import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 
-import org.firstinspires.ftc.robotcontroller.internal.PIkachu.Robomap;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 
 /**
@@ -66,12 +65,12 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
     public void register(OpModeManager manager) {
 
-        manager.register("Robomap", Robomap.class);
+
         /**
          * Register OpModes implemented in the Blocks visual programming language.
          */
         BlocksOpMode.registerAll(manager);
-
+        manager.register("TeleOp", TeleOpMan.class);
         /**
          * Register OpModes that use the annotation-based registration mechanism.
          */
