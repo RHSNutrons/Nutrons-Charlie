@@ -65,12 +65,14 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
     public void register(OpModeManager manager) {
 
+        // registering TeleOp
+        manager.register("TeleOpTina", TeleOpTina.class);
 
         /**
          * Register OpModes implemented in the Blocks visual programming language.
          */
         BlocksOpMode.registerAll(manager);
-        manager.register("TeleOp", TeleOpTina.class);
+
         /**
          * Register OpModes that use the annotation-based registration mechanism.
          */
