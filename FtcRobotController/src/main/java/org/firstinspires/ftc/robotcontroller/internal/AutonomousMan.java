@@ -28,6 +28,4 @@ public class AutonomousMan extends TeleOpTina{
         rightMotor.setPower(1);
         Thread.sleep(3000);
     }
-
-
 }
