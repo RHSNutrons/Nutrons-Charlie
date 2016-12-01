@@ -17,7 +17,7 @@ public class TeleOpTina extends OpMode {
     ColorSensor colorSensor;
     TouchSensor touch;
     DeviceInterfaceModule CDI;
-    double shooterSpeed=0;
+    double shooterSpeed = 0;
     boolean touchState = false;
     boolean LEDState = true;
 
@@ -25,14 +25,14 @@ public class TeleOpTina extends OpMode {
     public void init() {
 
         // mapping
-        leftMotor = hardwareMap.dcMotor.get("motor_1");
-        rightMotor = hardwareMap.dcMotor.get("motor_2");
-        intakeMotor = hardwareMap.dcMotor.get("intake_1");
-        intakeMotor2 = hardwareMap.dcMotor.get("intake_2");
-        shooterMotor = hardwareMap.dcMotor.get("shooter_1");
-        colorSensor = hardwareMap.colorSensor.get ("color");
-        touch = hardwareMap.touchSensor.get("feel");
-        CDI = hardwareMap.deviceInterfaceModule.get("DIM");
+        leftMotor = hardwareMap.dcMotor.get("leftMotor");
+        rightMotor = hardwareMap.dcMotor.get("rightMotor");
+        intakeMotor = hardwareMap.dcMotor.get("intakeMotor");
+        //intakeMotor2 = hardwareMap.dcMotor.get("intakeMotor2");
+        shooterMotor = hardwareMap.dcMotor.get("shooterMotor");
+        //colorSensor = hardwareMap.colorSensor.get ("colorSensor");
+        //touch = hardwareMap.touchSensor.get("touchSensor");
+        //CDI = hardwareMap.deviceInterfaceModule.get("DIM");
     }
 
     @Override
@@ -49,7 +49,7 @@ public class TeleOpTina extends OpMode {
         rightMotor.setPower(-right);
 
         // touch sensor
-        if (!touchState && touch.isPressed()) {
+        /*if (!touchState && touch.isPressed()) {
                 touchState = true;
                 LEDState = !LEDState;
                 colorSensor.enableLed(LEDState);
@@ -74,30 +74,60 @@ public class TeleOpTina extends OpMode {
             CDI.setLED(1, false);
             CDI.setLED(0, true);
         }
-
+*/
+        // intake let go
+        if (gamepad2.x) {
+            intakeMotor.setPower(-1);
+            //intakeMotor2.setPower(-1);
+        }
         // intake
-        if(gamepad2.left_trigger>=0){
+        if (gamepad2.b) {
             intakeMotor.setPower(1);
-            intakeMotor2.setPower(1);
+            //intakeMotor2.setPower(1);
         }
 
-        // ramping speed
-        if(gamepad1.x) {
-            if(shooterSpeed == 1){
-                shooterSpeed = 0;
-                shooterMotor.setPower(shooterSpeed);
-            }else {
-                shooterSpeed += .25;
-                shooterMotor.setPower(shooterSpeed);
-            }
+        // slower shooting
+        if (gamepad2.a) {
+            shooterMotor.setPower(.25);
         }
+        // faster shooting
+        if (gamepad2.y) {
+            shooterMotor.setPower(1);
+        }
+
+        // stop shooting & intake
+        if (gamepad2.right_bumper) {
+            shooterMotor.setPower(0);
+            intakeMotor.setPower(0);
+            //intakeMotor2.setPower(0);
+        }
+    }
+    public void driveForward()throws InterruptedException {
+        leftMotor.setPower(1);
+        rightMotor.setPower(1);
+        Thread.sleep(5000);
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+    }
+
+    public void turnRight()throws InterruptedException{
+            rightMotor.setPower(1);
+            Thread.sleep(1000);
+    }
+
+    public void turnleft()throws InterruptedException{
+        leftMotor.setPower(1);
+        Thread.sleep(100);
+    }
+    public void invert() throws InterruptedException{
+        leftMotor.setPower(1);
+        rightMotor.setPower(-1);
+        Thread.sleep(200);
     }
 
     @Override
     public void stop() {
 
     }
-
-
 }
 
