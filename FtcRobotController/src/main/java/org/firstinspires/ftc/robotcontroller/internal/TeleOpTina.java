@@ -102,7 +102,8 @@ public class TeleOpTina extends OpMode {
             //intakeMotor2.setPower(0);
         }
     }
-    public void driveForward()throws InterruptedException {
+
+    public void driveForward() throws InterruptedException {
         leftMotor.setPower(1);
         rightMotor.setPower(1);
         Thread.sleep(5000);
@@ -110,21 +111,31 @@ public class TeleOpTina extends OpMode {
         rightMotor.setPower(0);
     }
 
-    public void turnRight()throws InterruptedException{
-            rightMotor.setPower(1);
-            Thread.sleep(1000);
+    public void turnRight() throws InterruptedException {
+        rightMotor.setPower(1);
+        Thread.sleep(1000);
     }
 
-    public void turnleft()throws InterruptedException{
+    public void turnleft() throws InterruptedException {
         leftMotor.setPower(1);
         Thread.sleep(100);
     }
-    public void invert() throws InterruptedException{
+
+    public void invert() throws InterruptedException {
         leftMotor.setPower(1);
         rightMotor.setPower(-1);
         Thread.sleep(200);
     }
 
+    public void driveBackward() throws InterruptedException {
+        leftMotor.setPower(-1);
+        rightMotor.setPower(-1);
+    }
+    public void runIntake() throws InterruptedException{
+        intakeMotor2.setPower(1);
+        intakeMotor.setPower(1);
+        Thread.sleep(30000);
+    }
     @Override
     public void stop() {
 
