@@ -22,7 +22,7 @@ public class AutonomousMan extends TeleOpTina {
 
     }
         public void run()throws InterruptedException{
-            driveForward(1,1000);
+            driveForward(1,1000);//
             shoot(1, 300);
             driveForward(1,1000);
             turnLeft(1, 400);
