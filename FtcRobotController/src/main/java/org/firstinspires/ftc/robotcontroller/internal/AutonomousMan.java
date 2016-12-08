@@ -20,20 +20,23 @@ public class AutonomousMan extends TeleOpTina {
         //touch = hardwareMap.touchSensor.get("touchSensor");
         //CDI = hardwareMap.deviceInterfaceModule.get("DIM");
 
-    }
-        public void run()throws InterruptedException{
-            driveForward(1,1000);//
-            shoot(1, 300);
-            driveForward(1,1000);
-            turnLeft(1, 400);
-            turnRight(1, 800);
-    }
-@Override
-    public void stop(){
+    waitForStart();
 
+    // run until the end of the match (driver presses STOP)
+    while (opModeIsActive()) {
+        driveForward(1, 1000);
+        turnLeft(1, 300);
+        driveBackWards(1, 1000);
+        turnRight(1, 300);
+
+        idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+    }
 }
 
-    public void driveForward(int Power, int Time) throws InterruptedException{
+
+
+
+public void driveForward(int Power, int Time) throws InterruptedException{
         leftMotor.setPower(Power);
         rightMotor.setPower(Power);
         Thread.sleep(Time);
@@ -60,5 +63,11 @@ public class AutonomousMan extends TeleOpTina {
         shooterMotor.setPower(Power);
         Thread.sleep(Time);
     }
+    public void runIntake(int Power, int Time)throws InterruptedException{
+        intakeMotor.setPower(Power);
+        intakeMotor.setPower(Power);
+        Thread.sleep(Time);
+    }
+
 }
 
