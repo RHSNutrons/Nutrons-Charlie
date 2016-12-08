@@ -20,7 +20,7 @@ public class AutonomousMan extends TeleOpTina {
         //touch = hardwareMap.touchSensor.get("touchSensor");
         //CDI = hardwareMap.deviceInterfaceModule.get("DIM");
 
-    waitForStart();
+    waitForStart();//
 
     // run until the end of the match (driver presses STOP)
     while (opModeIsActive()) {
