@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.internal;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**+k
@@ -16,101 +13,45 @@ public class TeleOpTina extends LinearOpMode {
     /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
     // declaring motors and sensors
-    DcMotor leftMotor, rightMotor, intakeMotor, intakeMotor2, shooterMotor;
-    ColorSensor colorSensor;
-    TouchSensor touch;
-    DeviceInterfaceModule CDI;
-    double shooterSpeed = 0;
-    boolean touchState = false;
-    boolean LEDState = true;
+    DcMotor rotateMotor;
+    DcMotor driveMotor;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        leftMotor = hardwareMap.dcMotor.get("leftMotor");
-        rightMotor = hardwareMap.dcMotor.get("rightMotor");
-        intakeMotor = hardwareMap.dcMotor.get("intakeMotor");
-        //intakeMotor2 = hardwareMap.dcMotor.get("intakeMotor2");
-        shooterMotor = hardwareMap.dcMotor.get("shooterMotor");
-        //colorSensor = hardwareMap.colorSensor.get ("colorSensor");
+        rotateMotor = hardwareMap.dcMotor.get("rotateMotor");
+        driveMotor = hardwareMap.dcMotor.get("driveMotor");
+
+        rotateMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
+
+        int TICKS_PER_DEGREE = 4;
 
         waitForStart();
         runtime.reset();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
 
-            // movement
             float throttle = gamepad1.left_stick_y;
-            float direction = gamepad1.left_stick_x;
+            float direction = gamepad1.right_stick_x;
 
-            // powers
-            float right = throttle - direction;
-            float left = throttle + direction;
-            leftMotor.setPower(left);
-            rightMotor.setPower(-right);
+            //DcMotor.Direction d = ;
 
-            // touch sensor
-        /*if (!touchState && touch.isPressed()) {
-                touchState = true;
-                LEDState = !LEDState;
-                colorSensor.enableLed(LEDState);
-        }else {
-            touchState = false;
-        }
-
-        // color sensor
-        colorSensor.enableLed(LEDState);
-
-        float hsvValues[] ={0, 0, 0};
-
-        if(colorSensor.red() > colorSensor.blue() && colorSensor.red() > colorSensor.green()) {
-            CDI.setLED(1, true);
-            CDI.setLED(0, false);
-        }
-        else if(colorSensor.blue() > colorSensor.red() && colorSensor.blue() > colorSensor.green()){
-            CDI.setLED(1, false);
-            CDI.setLED(0, true);
-        }
-        else{
-            CDI.setLED(1, false);
-            CDI.setLED(0, true);
-        }
-*/
-            // intake let go
-            if (gamepad2.x) {
-                intakeMotor.setPower(-1);
-                //intakeMotor2.setPower(-1);
-            }
-            // intake
-            if (gamepad2.b) {
-                intakeMotor.setPower(1);
-                //intakeMotor2.setPower(1);
+            if(direction > 0.3){
+                //rotateMotor.setDirection(d);
             }
 
-            // slower shooting
-            if (gamepad2.a) {
-                shooterMotor.setPower(.25);
-            }
-            // faster shooting
-            if (gamepad2.y) {
-                shooterMotor.setPower(1);
-            }
+            driveMotor.setPower(throttle);
 
-            // stop shooting & intake
-            if (gamepad2.right_bumper) {
-                shooterMotor.setPower(0);
-                intakeMotor.setPower(0);
-                //intakeMotor2.setPower(0);
-
-
-                idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
-            }
+            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
         }
     }
 }
+
 
