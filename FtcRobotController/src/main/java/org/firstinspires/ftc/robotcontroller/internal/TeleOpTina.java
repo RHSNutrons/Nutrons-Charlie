@@ -41,10 +41,11 @@ public class TeleOpTina extends LinearOpMode {
             float throttle = gamepad1.left_stick_y;
             float direction = gamepad1.right_stick_x;
 
+
             //DcMotor.Direction d = ;
 
             if(direction > 0.3){
-                //rotateMotor.setDirection(d);
+                rotateMotor.setPower(direction);
             }
 
             driveMotor.setPower(throttle);
